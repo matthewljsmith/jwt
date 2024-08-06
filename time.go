@@ -2,6 +2,7 @@ package jwt
 
 import (
 	"encoding/json"
+	"strconv"
 	"time"
 
 	"github.com/gbrlsnchs/jwt/v3/internal"
@@ -31,8 +32,16 @@ func (t Time) MarshalJSON() ([]byte, error) {
 // UnmarshalJSON implements an unmarshaling function for time-related claims.
 func (t *Time) UnmarshalJSON(b []byte) error {
 	var unix *int64
+	var unixStr *string
 	if err := json.Unmarshal(b, &unix); err != nil {
-		return err
+		if err := json.Unmarshal(b, &unixStr); err == nil {
+			i, e := strconv.ParseInt(*unixStr, 10, 64)
+			if e == nil {
+				*unix = i
+			}
+		} else {
+			return err
+		}
 	}
 	if unix == nil {
 		return nil

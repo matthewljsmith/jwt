@@ -2,6 +2,7 @@ package jwt_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"testing"
 	"time"
 
@@ -54,6 +55,40 @@ func TestTimeUnmarshalJSON(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run("", func(t *testing.T) {
 			var n *int64
+			if !tc.isNil {
+				n = &tc.n
+			}
+			b, err := json.Marshal(n)
+			if err != nil {
+				t.Fatal(err)
+			}
+			var tt jwt.Time
+			if err = tt.UnmarshalJSON(b); err != nil {
+				t.Fatal(err)
+			}
+			if want, got := tc.want.Unix(), tt.Unix(); got != want {
+				t.Errorf("jwt.Time.Unmarshal mismatch (-want +got):\n%s", cmp.Diff(want, got))
+			}
+		})
+	}
+}
+func TestTimeStringUnmarshalJSON(t *testing.T) {
+	now := time.Now()
+	testCases := []struct {
+		n     string
+		want  jwt.Time
+		isNil bool
+	}{
+		{fmt.Sprintf("%d", now.Unix()), jwt.Time{now}, false},
+		{fmt.Sprintf("%d", internal.Epoch.Unix()-0xDEAD), jwt.Time{internal.Epoch}, false},
+		{fmt.Sprintf("%d", internal.Epoch.Unix()), jwt.Time{internal.Epoch}, false},
+		{fmt.Sprintf("%d", internal.Epoch.Unix()+0xDEAD), jwt.Time{internal.Epoch.Add(0xDEAD * time.Second)}, false},
+		{"", jwt.Time{}, true},
+		{"0", jwt.Time{}, true},
+	}
+	for _, tc := range testCases {
+		t.Run("", func(t *testing.T) {
+			var n *string
 			if !tc.isNil {
 				n = &tc.n
 			}
