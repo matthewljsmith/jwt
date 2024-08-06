@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gbrlsnchs/jwt/v3"
+	"github.com/matthewljsmith/jwt/v3"
 )
 
 var (
@@ -18,7 +18,7 @@ func BenchmarkSign(b *testing.B) {
 		token []byte
 		err   error
 		pl    = jwt.Payload{
-			Issuer:         "gbrlsnchs",
+			Issuer:         "matthewljsmith",
 			Subject:        "someone",
 			Audience:       jwt.Audience{"https://golang.org", "https://jwt.io"},
 			ExpirationTime: jwt.NumericDate(now.Add(24 * 30 * 12 * time.Hour)),

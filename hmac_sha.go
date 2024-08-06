@@ -5,7 +5,7 @@ import (
 	"crypto/hmac"
 	"hash"
 
-	"github.com/gbrlsnchs/jwt/v3/internal"
+	"github.com/matthewljsmith/jwt/v3/internal"
 )
 
 var (

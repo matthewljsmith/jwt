@@ -1,3 +1,4 @@
+//go:build go1.13
 // +build go1.13
 
 package jwt
@@ -5,7 +6,7 @@ package jwt
 import (
 	"crypto/ed25519"
 
-	"github.com/gbrlsnchs/jwt/v3/internal"
+	"github.com/matthewljsmith/jwt/v3/internal"
 )
 
 var (

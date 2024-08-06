@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/gbrlsnchs/jwt/v3"
 	"github.com/google/go-cmp/cmp"
+	"github.com/matthewljsmith/jwt/v3"
 )
 
 func TestAudienceMarshal(t *testing.T) {

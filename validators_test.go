@@ -4,9 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gbrlsnchs/jwt/v3"
-	"github.com/gbrlsnchs/jwt/v3/internal"
 	"github.com/google/go-cmp/cmp"
+	"github.com/matthewljsmith/jwt/v3"
+	"github.com/matthewljsmith/jwt/v3/internal"
 )
 
 func TestValidators(t *testing.T) {

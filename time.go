@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/gbrlsnchs/jwt/v3/internal"
+	"github.com/matthewljsmith/jwt/v3/internal"
 )
 
 // Time is the allowed format for time, as per the RFC 7519.

@@ -1,9 +1,10 @@
+//go:build !go1.13
 // +build !go1.13
 
 package jwt
 
 import (
-	"github.com/gbrlsnchs/jwt/v3/internal"
+	"github.com/matthewljsmith/jwt/v3/internal"
 	"golang.org/x/crypto/ed25519"
 )
 

@@ -1,13 +1,15 @@
 # jwt (JSON Web Token for Go)
-[![JWT compatible](https://jwt.io/img/badge.svg)](https://jwt.io)  
 
-[![Github Actions Status](https://github.com/gbrlsnchs/jwt/workflows/Linux,%20macOS%20and%20Windows/badge.svg)](https://github.com/gbrlsnchs/jwt/actions)
-[![Go Report Card](https://goreportcard.com/badge/github.com/gbrlsnchs/jwt)](https://goreportcard.com/report/github.com/gbrlsnchs/jwt)
-[![GoDoc](https://godoc.org/github.com/gbrlsnchs/jwt?status.svg)](https://pkg.go.dev/github.com/gbrlsnchs/jwt/v3)
-[![Version compatibility with Go 1.11 onward using modules](https://img.shields.io/badge/compatible%20with-go1.11+-5272b4.svg)](https://github.com/gbrlsnchs/jwt#installing)
-[![Join the chat at https://gitter.im/gbrlsnchs/jwt](https://badges.gitter.im/gbrlsnchs/jwt.svg)](https://gitter.im/gbrlsnchs/jwt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![JWT compatible](https://jwt.io/img/badge.svg)](https://jwt.io)
+
+[![Github Actions Status](https://github.com/matthewljsmith/jwt/workflows/Linux,%20macOS%20and%20Windows/badge.svg)](https://github.com/matthewljsmith/jwt/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/matthewljsmith/jwt)](https://goreportcard.com/report/github.com/matthewljsmith/jwt)
+[![GoDoc](https://godoc.org/github.com/matthewljsmith/jwt?status.svg)](https://pkg.go.dev/github.com/matthewljsmith/jwt/v3)
+[![Version compatibility with Go 1.11 onward using modules](https://img.shields.io/badge/compatible%20with-go1.11+-5272b4.svg)](https://github.com/matthewljsmith/jwt#installing)
+[![Join the chat at https://gitter.im/matthewljsmith/jwt](https://badges.gitter.im/matthewljsmith/jwt.svg)](https://gitter.im/matthewljsmith/jwt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## About
+
 This package is a JWT signer, verifier and validator for [Go](https://golang.org) (or Golang).
 
 Although there are many JWT packages out there for Go, many lack support for some signing, verifying or validation methods and, when they don't, they're overcomplicated. This package tries to mimic the ease of use from [Node JWT library](https://github.com/auth0/node-jsonwebtoken)'s API while following the [Effective Go](https://golang.org/doc/effective_go.html) guidelines.
@@ -15,35 +17,41 @@ Although there are many JWT packages out there for Go, many lack support for som
 Support for [JWE](https://tools.ietf.org/html/rfc7516) isn't provided (not yet but is in the roadmap, see #17). Instead, [JWS](https://tools.ietf.org/html/rfc7515) is used, narrowed down to the [JWT specification](https://tools.ietf.org/html/rfc7519).
 
 ### Supported signing methods
-|         | SHA-256            | SHA-384            | SHA-512            |
-|:-------:|:------------------:|:------------------:|:------------------:|
-| HMAC    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| RSA     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+|         |      SHA-256       |      SHA-384       |      SHA-512       |
+| :-----: | :----------------: | :----------------: | :----------------: |
+|  HMAC   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+|   RSA   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | RSA-PSS | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| ECDSA   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| EdDSA   | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_check_mark: |
+|  ECDSA  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+|  EdDSA  | :heavy_minus_sign: | :heavy_minus_sign: | :heavy_check_mark: |
 
 ## Important
+
 Branch `master` is unstable, **always** use tagged versions. That way it is possible to differentiate pre-release tags from production ones.
 In other words, API changes all the time in `master`. It's a place for public experiment. Thus, make use of the latest stable version via Go modules.
 
 ## Usage
-Full documentation [here](https://pkg.go.dev/github.com/gbrlsnchs/jwt/v3).
+
+Full documentation [here](https://pkg.go.dev/github.com/matthewljsmith/jwt/v3).
 
 ### Installing
+
 #### Important
+
 For Go 1.11, make sure the environment variable `GO111MODULE` is set as `on` when running the install command.
 
 ```sh
-$ go get -u github.com/gbrlsnchs/jwt/v3
+$ go get -u github.com/matthewljsmith/jwt/v3
 ```
 
 ### Signing
+
 ```go
 import (
 	"time"
 
-	"github.com/gbrlsnchs/jwt/v3"
+	"github.com/matthewljsmith/jwt/v3"
 )
 
 type CustomPayload struct {
@@ -58,7 +66,7 @@ func main() {
 	now := time.Now()
 	pl := CustomPayload{
 		Payload: jwt.Payload{
-			Issuer:         "gbrlsnchs",
+			Issuer:         "matthewljsmith",
 			Subject:        "someone",
 			Audience:       jwt.Audience{"https://golang.org", "https://jwt.io"},
 			ExpirationTime: jwt.NumericDate(now.Add(24 * 30 * 12 * time.Hour)),
@@ -80,8 +88,9 @@ func main() {
 ```
 
 ### Verifying
+
 ```go
-import "github.com/gbrlsnchs/jwt/v3"
+import "github.com/matthewljsmith/jwt/v3"
 
 type CustomPayload struct {
 	jwt.Payload
@@ -105,22 +114,24 @@ func main() {
 ```
 
 ### Other use case examples
+
 <details><summary><b>Setting "cty" and "kid" claims</b></summary>
 <p>
 
 The "cty" and "kid" claims can be set by passing options to the `jwt.Sign` function:
+
 ```go
 import (
 	"time"
 
-	"github.com/gbrlsnchs/jwt/v3"
+	"github.com/matthewljsmith/jwt/v3"
 )
 
 var hs = jwt.NewHS256([]byte("secret"))
 
 func main() {
 	pl := jwt.Payload{
-		Subject:  "gbrlsnchs",
+		Subject:  "matthewljsmith",
 		Issuer:   "gsr.dev",
 		IssuedAt: jwt.NumericDate(time.Now()),
 	}
@@ -140,12 +151,11 @@ func main() {
 <details><summary><b>Validating claims</b></summary>
 <p>
 
-
 ```go
 import (
 	"time"
 
-	"github.com/gbrlsnchs/jwt/v3"
+	"github.com/matthewljsmith/jwt/v3"
 )
 
 type CustomPayload struct {
@@ -190,8 +200,9 @@ func main() {
 <p>
 
 For validating the "alg" field in a JOSE header **before** verification, the `jwt.ValidateHeader` option must be passed to `jwt.Verify`.
+
 ```go
-import "github.com/gbrlsnchs/jwt/v3"
+import "github.com/matthewljsmith/jwt/v3"
 
 var hs = jwt.NewHS256([]byte("secret"))
 
@@ -217,8 +228,8 @@ func main() {
 import (
 	"errors"
 
-	"github.com/gbrlsnchs/jwt/v3"
-	"github.com/gbrlsnchs/jwt/v3/jwtutil"
+	"github.com/matthewljsmith/jwt/v3"
+	"github.com/matthewljsmith/jwt/v3/jwtutil"
 )
 
 var (
@@ -252,6 +263,8 @@ func main() {
 </details>
 
 ## Contributing
+
 ### How to help
-- For bugs and opinions, please [open an issue](https://github.com/gbrlsnchs/jwt/issues/new)
-- For pushing changes, please [open a pull request](https://github.com/gbrlsnchs/jwt/compare)
+
+- For bugs and opinions, please [open an issue](https://github.com/matthewljsmith/jwt/issues/new)
+- For pushing changes, please [open a pull request](https://github.com/matthewljsmith/jwt/compare)

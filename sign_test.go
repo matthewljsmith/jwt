@@ -4,10 +4,10 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/gbrlsnchs/jwt/v3"
-	"github.com/gbrlsnchs/jwt/v3/internal"
-	"github.com/gbrlsnchs/jwt/v3/jwtutil"
 	"github.com/google/go-cmp/cmp"
+	"github.com/matthewljsmith/jwt/v3"
+	"github.com/matthewljsmith/jwt/v3/internal"
+	"github.com/matthewljsmith/jwt/v3/jwtutil"
 )
 
 var testErr = errors.New("test")
